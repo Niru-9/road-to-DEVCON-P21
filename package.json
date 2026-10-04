@@ -1,0 +1,53 @@
+{
+  "name": "ens-agent-router",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "ENS Agent Router — one front door that discovers specialist AI agents from their own ENS text records, routes a request to the right one with a model, and returns the answer with ENS attribution. Road To Devcon VII, problem: Which AI Should Answer This?",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.12"
+  },
+  "scripts": {
+    "dev": "concurrently -n router,web,agents -c cyan,magenta,yellow \"npm:dev:router\" \"npm:dev:web\" \"npm:agents\"",
+    "dev:router": "tsx watch src/server/index.ts",
+    "dev:web": "vite",
+    "build": "vite build",
+    "start": "cross-env NODE_ENV=production tsx src/server/index.ts",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "check:secrets": "node scripts/scan-secrets.mjs",
+    "check:docs": "node scripts/check-doc-references.mjs",
+    "check": "npm run typecheck && npm run test && npm run check:secrets && npm run check:docs",
+    "harness:check": "node scripts/harness-check.mjs",
+    "record": "tsx scripts/record-routes.ts",
+    "publish:dry-run": "tsx scripts/publish-records.ts",
+    "probe:registry": "tsx scripts/probe-registry.ts",
+    "agents": "concurrently -n invoice,contract,brand -c yellow,green,cyan \"npm:agent:invoice\" \"npm:agent:contract\" \"npm:agent:brand\"",
+    "agent:invoice": "tsx agents/invoice/server.ts",
+    "agent:contract": "tsx agents/contract/server.ts",
+    "agent:brand": "tsx agents/brand-copy/server.ts"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "viem": "^2.37.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.10.2",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vite": "^5.4.11",
+    "vitest": "^2.1.8"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "notice": "DEVELOPMENT FALLBACK — not ENS. Live ENS discovery is attempted first on every refresh. This file is read only when every live strategy found zero agents, and every agent it produces is tagged source:\"dev-registry\" in the API response and in the UI. It exists so the demo can be reviewed before the Sepolia records are published. Do not treat it as live discovery, and do not present it to a judge as published agents. Once the registry record on the discovery root is published, this file is not read at all.",
+  "agents": [
+    {
+      "ensName": "invoice.ensrouter.eth",
+      "records": {
+        "com.ensagent.capability": "Handles invoices and receivables: overdue balances, dunning and reminder wording, late-fee questions, payment plans, credits and payment reconciliation.",
+        "com.ensagent.endpoint": "http://127.0.0.1:8791/invoke",
+        "com.ensagent.accepts": "A question about an invoice, an overdue amount, a late fee, a disputed amount, a duplicate payment, or a request for reminder wording.",
+        "com.ensagent.version": "1.0.0"
+      }
+    },
+    {
+      "ensName": "contract.ensrouter.eth",
+      "records": {
+        "com.ensagent.capability": "Reads and interprets commercial contract terms: termination and notice, payment and late fees, IP ownership and licences, confidentiality, exclusivity, liability and renewal clauses.",
+        "com.ensagent.endpoint": "http://127.0.0.1:8792/invoke",
+        "com.ensagent.accepts": "A contract question, a clause you are unsure about, or contract wording you want explained - ideally with the exact sentence or clause quoted.",
+        "com.ensagent.version": "1.0.0"
+      }
+    },
+    {
+      "ensName": "brand-copy.ensrouter.eth",
+      "records": {
+        "com.ensagent.capability": "Writes and rewrites the studio's own words: taglines, About and home page copy, product descriptions, emails and captions, in one consistent voice with the changes explained.",
+        "com.ensagent.endpoint": "http://127.0.0.1:8793/invoke",
+        "com.ensagent.accepts": "A writing or rewriting request - a tagline, a paragraph, an About page, a product description, an email or a caption - ideally with who is reading it.",
+        "com.ensagent.version": "1.0.0"
+      }
+    }
+  ]
+}

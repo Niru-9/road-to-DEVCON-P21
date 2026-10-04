@@ -1,0 +1,62 @@
+{
+  "problem": "Which AI Should Answer This?",
+  "problemSlug": "ens-agent-router",
+  "discoveryRoot": "ensrouter.eth",
+  "status": "recorded-expected",
+  "notes": [
+    "These are the routing cases the problem statement asks to be recorded: a client request paired with the specific agent expected to handle it, or explicitly expected to reach no agent.",
+    "`expectAgent` is null where no discovered agent is expected to fit. That is a correct outcome, not a gap.",
+    "The names below are the planned Sepolia demo names. Renaming the studio's namespace means editing `AGENT_DISCOVERY_ROOT` in .env and republishing the records; the cases are keyed on the name, so re-record after a rename.",
+    "`npm run record` re-runs every case through the live route and rewrites docs/routing-cases.md with the observed outcome. Until that run exists, this file states EXPECTATIONS, not observations."
+  ],
+  "cases": [
+    {
+      "id": "R1",
+      "question": "Client invoice 2291 is 40 days overdue. What do we say in the reminder email, and can we add a late fee?",
+      "expectAgent": "invoice.ensrouter.eth",
+      "why": "Overdue invoice handling: dunning wording, late-fee policy, payment terms. Only the invoice helper owns money owed to the studio."
+    },
+    {
+      "id": "R2",
+      "question": "Our client's contract says they can use the logo in any press release forever. Is that exclusivity?",
+      "expectAgent": "contract.ensrouter.eth",
+      "why": "Contract clause interpretation: perpetual, irrevocable, exclusive licence rights."
+    },
+    {
+      "id": "R3",
+      "question": "Write three short taglines for a ceramics studio that only fires in wood kilns.",
+      "expectAgent": "brand-copy.ensrouter.eth",
+      "why": "Brand copywriting for the studio's own voice."
+    },
+    {
+      "id": "R4",
+      "question": "A client paid invoice 2310 twice by bank transfer. How should we reconcile and refund it?",
+      "expectAgent": "invoice.ensrouter.eth",
+      "why": "Reconciliation of a duplicate payment is receivables work, not contract interpretation."
+    },
+    {
+      "id": "R5",
+      "question": "Can you book me a flight to Lisbon next Tuesday?",
+      "expectAgent": null,
+      "why": "No discovered agent handles travel or booking. The router must answer with an explicit no-suitable-agent response rather than picking the nearest helper."
+    },
+    {
+      "id": "R6",
+      "question": "What's the weather in Bengaluru this weekend?",
+      "expectAgent": null,
+      "why": "Off-topic for every discovered agent. Explicit no-agent is the expected and correct routing."
+    },
+    {
+      "id": "R7",
+      "question": "Rewrite our About page so it stops sounding like a robot and reads like a person who fires clay.",
+      "expectAgent": "brand-copy.ensrouter.eth",
+      "why": "Voice and tone rewriting of studio marketing copy."
+    },
+    {
+      "id": "R8",
+      "question": "The retainer agreement says 30 days' notice. Can we terminate on a Friday the 13th?",
+      "expectAgent": "contract.ensrouter.eth",
+      "why": "Termination and notice-period clause reading."
+    }
+  ]
+}
