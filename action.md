@@ -569,3 +569,51 @@ an explicit "still NOT VERIFIED" section.
 - No official numeric score is claimed: `loops evaluate` returns an evaluator prompt, not a verdict.
 
 No ENS write, no transaction, root `.env` untouched, no credential printed, no gate weakened.
+
+---
+
+## T19 — Repository prepared, committed and pushed `DONE`
+
+**Target:** `https://github.com/Niru-9/road-to-DEVCON-P21` (created by the builder for this purpose;
+pushing this folder there was explicitly authorised).
+
+### Repository structure — why this folder is now its own repository
+
+`N:\dev8` is a single Git repository whose history predates the split into `p1/`, `p2/` and `p3/`
+(its commits contain P1's source at the *root* level, and `p1/`, `p2/`, `p3/` are untracked there).
+Pushing from that root would have committed three different projects into one repository, which the
+builder's instruction forbids. `p3/` was therefore initialised as its own repository, so the commit
+contains exactly this project folder.
+
+- Root repository `N:\dev8`: **not committed, not pushed, not modified.** Left exactly as found.
+- `p3/.git` initialised on branch `main`.
+
+### Pre-push inspection
+
+| Check | Observed |
+| --- | --- |
+| Folder contents belong to P3 | 58 tracked files: own `README.md`, `package.json`, `package-lock.json`, `tsconfig.json`, `vite.config.ts`, `vitest.config.ts`, `.gitignore`, `.env.example`, `p3.md`, `agents/` (four specialist services), `dev-registry/`, `src/{server,shared,web}`, `scripts/`, `docs/`, `action.md`, and the two harness skill copies installed by `loops add`. No P1/P2 files, no root `p1.md` / `p2.md` / `plan.md`. |
+| Ignored, therefore not staged | `.env` (local, git-ignored), `node_modules/`, `dist/`, `*.log`, `*.pem`, `*.key`, `secrets.json`, `wallet.json`, `.harness/` |
+| No keys, logs or databases present | none found in the folder inventory |
+| Secret scan **against the real index** (re-run after `git init`) | `PASS: no credential-shaped content in tracked files, and no secret file is tracked` — 55 text files; `tracked .env files: none` |
+| Remote state before push | `git ls-remote` → **0 refs** (empty repository, so no remote history could be overwritten) |
+
+### Release checks run immediately before the commit
+
+| Command | Result |
+| --- | --- |
+| `npm run check` | **exit 0** — `tsc` clean; **146 tests / 7 files**; credential scan PASS; 85 code paths and 20 file:line doc references resolve |
+| `npm run build` | **PASS** — 4.93 s, 162.88 kB JS / 10.93 kB CSS |
+
+### Commit and push
+
+| Item | Value |
+| --- | --- |
+| Branch | `main` |
+| Commit | `0ae1633` — `feat: submit P3 ENS agent router MVP` |
+| Remote | `origin` → `https://github.com/Niru-9/road-to-DEVCON-P21` |
+| Push | **SUCCESS** — `* [new branch] main -> main` |
+| Verified after push | `git ls-remote origin` → `0ae1633420f40a29d5d2f43f7b9265ed01a707c0 refs/heads/main`, identical to local `HEAD` |
+
+Nothing was force-pushed, no history was rewritten, and no other repository was created. No ENS
+record was published and no transaction was sent. The root `.env` was not read or modified.
